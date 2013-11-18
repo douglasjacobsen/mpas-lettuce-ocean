@@ -120,6 +120,10 @@ def get_test_case(step, size, levs, test, time_stepper):
 			new_line = "    config_stats_interval = '1000_00:00:01'\n"
 		elif line.find("config_dt") >= 0:
 			new_line = "    config_dt = %f\n"%world.dt
+		elif line.find("config_frames_per_outfile") >= 0:
+			new_line = "    config_frames_per_outfile = 0\n"
+		elif line.find("config_write_output_on_startup") >= 0:
+			new_line = "    config_write_output_on_startup = .true.\n"
 		elif world.time_stepper_change:
 			if line.find("config_time_integrator") >= 0:
 				new_line = "    config_time_integrator = '%s'\n"%(time_stepper)
@@ -215,6 +219,10 @@ def get_test_case(step, size, levs, test, time_stepper):
 			new_line = "    config_stats_interval = '1000_00:00:01'\n"
 		elif line.find("config_dt") >= 0:
 			new_line = "    config_dt = %f\n"%world.dt
+		elif line.find("config_frames_per_outfile") >= 0:
+			new_line = "    config_frames_per_outfile = 0\n"
+		elif line.find("config_write_output_on_startup") >= 0:
+			new_line = "    config_write_output_on_startup = .true.\n"
 		elif world.time_stepper_change:
 			if line.find("config_time_integrator") >= 0:
 				new_line = "    config_time_integrator = '%s'\n"%(time_stepper)
