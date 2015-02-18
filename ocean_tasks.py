@@ -79,28 +79,28 @@ def timestamp_to_seconds(timestamp):#{{{
 @step('A "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" test')#{{{
 def get_test_case(step, size, levs, test, time_stepper):
 	for testtype in ('trusted', 'testing'):
-		world.basedir = os.getcwd()
+		world.base_dir = os.getcwd()
 		world.test = "%s_%s_%s"%(test, size, levs)
 		world.num_runs = 0
 		world.namelist = "namelist.ocean_forward"
 		world.streams = "streams.ocean_forward"
 
 		#Setup trusted...
-		if not os.path.exists("%s/%s_tests"%(world.basedir, testtype)):
+		if not os.path.exists("%s/%s_tests"%(world.base_dir, testtype)):
 			command = "mkdir"
 			arg1 = "-p"
-			arg2 = "%s/%s_tests"%(world.basedir, testtype)
+			arg2 = "%s/%s_tests"%(world.base_dir, testtype)
 			subprocess.call([command, arg1, arg2], stdout=dev_null, stderr=dev_null)
 
-		os.chdir("%s/%s_tests"%(world.basedir, testtype))
+		os.chdir("%s/%s_tests"%(world.base_dir, testtype))
 
 		if world.clone:
-			if not os.path.exists("%s/%s_tests/%s.tgz"%(world.basedir, testtype, world.test)):
+			if not os.path.exists("%s/%s_tests/%s.tgz"%(world.base_dir, testtype, world.test)):
 				command = "wget"
 				arg1 = "%s/%s.tgz"%(world.trusted_url, world.test)
 				subprocess.call([command, arg1], stdout=dev_null, stderr=dev_null)
 
-		if not os.path.exists("%s/%s_tests/%s"%(world.basedir, testtype, world.test)):
+		if not os.path.exists("%s/%s_tests/%s"%(world.base_dir, testtype, world.test)):
 			command = "tar"
 			arg1 = "xzf"
 			arg2 = "%s.tgz"%world.test
@@ -114,11 +114,11 @@ def get_test_case(step, size, levs, test, time_stepper):
 			arg2 = "%s/streams.ocean_forward.default.xml"%world.test
 			subprocess.call([command, arg1, arg2], stdout=dev_null, stderr=dev_null)
 
-		os.chdir("%s/%s_tests/%s"%(world.basedir, testtype, world.test))
+		os.chdir("%s/%s_tests/%s"%(world.base_dir, testtype, world.test))
 		for exetype in ('trusted', 'testing'):
 			command = "ln"
 			arg1 = "-s"
-			arg2 = "%s/%s/ocean_forward_model"%(world.basedir, exetype)
+			arg2 = "%s/%s/ocean_forward_model"%(world.base_dir, exetype)
 			arg3 = "ocean_model_%s"%(exetype)
 			subprocess.call([command, arg1, arg2, arg3], stdout=dev_null, stderr=dev_null)
 
@@ -226,6 +226,6 @@ def get_test_case(step, size, levs, test, time_stepper):
 		del member
 		#}}}
 
-		os.chdir(world.basedir)
+		os.chdir(world.base_dir)
 #}}}
 
