@@ -30,7 +30,8 @@ def seconds_to_timestamp(seconds):#{{{
 		seconds = seconds - int(minutes*60)
 
 	timestamp = "%4.4d_%2.2d:%2.2d:%2.2d"%(days, hours, minutes, seconds)
-	return timestamp#}}}
+	return timestamp
+#}}}
 
 def timestamp_to_seconds(timestamp):#{{{
 	in_str = timestamp.translate(None, "'")
@@ -55,24 +56,25 @@ def timestamp_to_seconds(timestamp):#{{{
 			days = days + 365 * float(parts[0])
 			days = days + 30 * float(parts[1])
 			days = days + float(parts[2])
-		else:
-			tod = in_str
+	else:
+		tod = in_str
 
-		if tod.find(":") == 0:
-			seconds = float(tod)
-		elif tod.find(":") == 1:
-			parts = tod.split(":")
-			minutes = float(parts[0])
-			seconds = float(parts[1])
-		elif tod.find(":") == 2:
-			parts = tod.split(":")
-			hours = float(parts[0])
-			minutes = float(parts[1])
-			seconds = float(parts[2])
+	if tod.find(":") == 0:
+		seconds = float(tod)
+	elif tod.find(":") == 1:
+		parts = tod.split(":")
+		minutes = float(parts[0])
+		seconds = float(parts[1])
+	elif tod.find(":") == 2:
+		parts = tod.split(":")
+		hours = float(parts[0])
+		minutes = float(parts[1])
+		seconds = float(parts[2])
 
-		seconds = seconds + minutes * 60 + hours * 3600 + days * 24 * 3600
+	seconds = seconds + minutes * 60 + hours * 3600 + days * 24 * 3600
 
-	return seconds#}}}
+	return seconds
+#}}}
 
 @step('A "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" test')#{{{
 def get_test_case(step, size, levs, test, time_stepper):
